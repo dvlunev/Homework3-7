@@ -1,5 +1,7 @@
 package me.lunev.homework37.services;
 
+import java.io.File;
+
 public interface FilesService {
 
     boolean saveIngredientToFile(String json);
@@ -9,4 +11,12 @@ public interface FilesService {
     String readFromIngredientsFile();
 
     String readFromRecipesFile();
+
+    boolean cleanRecipesFile();
+
+    boolean cleanIngredientsFile();
+
+    File getIngredientsFile();
+
+    File getRecipesFile();
 }
