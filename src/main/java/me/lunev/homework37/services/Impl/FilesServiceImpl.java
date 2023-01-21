@@ -4,6 +4,7 @@ import me.lunev.homework37.services.FilesService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -40,6 +41,27 @@ public class FilesServiceImpl implements FilesService {
         return readFromDataFile(recipesFilePath, recipesFileName);
     }
 
+    @Override
+    public File getIngredientsFile() {
+        return getDataFile(ingredientsFilePath, ingredientsFileName);
+    }
+
+    @Override
+    public File getRecipesFile() {
+        return getDataFile(recipesFilePath, recipesFileName);
+    }
+
+
+    @Override
+    public boolean cleanRecipesFile() {
+        return cleanDataFile(recipesFilePath, recipesFileName);
+    }
+
+    @Override
+    public boolean cleanIngredientsFile() {
+        return cleanDataFile(ingredientsFilePath, ingredientsFileName);
+    }
+
     private boolean saveDataToFile(String json, String  filePath, String  fileName) {
         try {
             cleanDataFile(filePath, fileName);
@@ -74,5 +96,8 @@ public class FilesServiceImpl implements FilesService {
             e.printStackTrace();
             return false;
         }
+    }
+    public File getDataFile(String filePath, String fileName) {
+        return new File(filePath + "/" + fileName);
     }
 }

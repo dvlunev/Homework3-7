@@ -20,4 +20,6 @@ public interface RecipeService {
     boolean deleteRecipe(int id);
 
     Map<Integer, Recipe> getAllRecipes();
+
+    void readFromFile();
 }

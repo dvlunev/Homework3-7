@@ -26,7 +26,11 @@ public class IngredientServiceImpl implements IngredientService {
 
     @PostConstruct
     private void init() {
-        readFromFile();
+        try {
+            readFromFile();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
