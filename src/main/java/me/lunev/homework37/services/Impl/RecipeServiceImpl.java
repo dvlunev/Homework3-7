@@ -10,10 +10,7 @@ import me.lunev.homework37.services.RecipeService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static me.lunev.homework37.services.Impl.IngredientServiceImpl.idIng;
 import static me.lunev.homework37.services.Impl.IngredientServiceImpl.ingredients;
@@ -31,7 +28,11 @@ public class RecipeServiceImpl implements RecipeService {
 
     @PostConstruct
     private void init() {
-        readFromFile();
+        try {
+            readFromFile();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -114,14 +115,50 @@ public class RecipeServiceImpl implements RecipeService {
         }
     }
 
-    private void readFromFile() {
+    @Override
+    public void readFromFile() {
         try {
             String json = filesService.readFromRecipesFile();
-            String json1 = filesService.readFromIngredientsFile();
+            String jsonIng = filesService.readFromIngredientsFile();
             recipes = new ObjectMapper().readValue(json, new TypeReference<Map<Integer, Recipe>>(){});
-            ingredients = new ObjectMapper().readValue(json1, new TypeReference<Map<Integer, Ingredient>>(){});
+            ingredients = new ObjectMapper().readValue(jsonIng, new TypeReference<Map<Integer, Ingredient>>(){});
+            for (Recipe recipe : recipes.values()) {
+                for (int i = 0; i < recipe.getIngredients().size(); i++) {
+                    if (!ingredients.containsValue(recipe.getIngredients().get(i))) {
+                        ingredients.put(idIng++,recipe.getIngredients().get(i));
+                    }
+                }
+            }
+                jsonIng = new ObjectMapper().writeValueAsString(ingredients);
+                filesService.saveIngredientToFile(jsonIng);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+    }
+
+//    @Override
+//    public void readFromFileForUpload() {
+//        try {
+//            String json = filesService.readFromRecipesFile();
+//            String json1 = filesService.readFromIngredientsFile();
+//            recipes = new ObjectMapper().readValue(json, new TypeReference<Map<Integer, Recipe>>(){});
+//            ingredients = new ObjectMapper().readValue(json1, new TypeReference<Map<Integer, Ingredient>>(){});
+//        } catch (JsonProcessingException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RecipeServiceImpl that = (RecipeServiceImpl) o;
+        return Objects.equals(filesService, that.filesService);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(filesService);
     }
 }

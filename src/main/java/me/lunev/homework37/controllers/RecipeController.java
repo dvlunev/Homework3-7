@@ -39,7 +39,7 @@ public class RecipeController {
                     description = "Рецепт и его ингредиенты были добавлены",
                     content = {
                             @Content(
-                                    mediaType = "addlication/json",
+                                    mediaType = "application/json",
                                     array = @ArraySchema(schema = @Schema(implementation = Recipe.class))
                             )
                     }
@@ -70,7 +70,7 @@ public class RecipeController {
                     description = "Рецепт был найден",
                     content = {
                             @Content(
-                                    mediaType = "addlication/json",
+                                    mediaType = "application/json",
                                     array = @ArraySchema(schema = @Schema(implementation = Recipe.class))
                             )
                     }
@@ -104,7 +104,7 @@ public class RecipeController {
                     description = "Рецепт был найден",
                     content = {
                             @Content(
-                                    mediaType = "addlication/json",
+                                    mediaType = "application/json",
                                     array = @ArraySchema(schema = @Schema(implementation = Recipe.class))
                             )
                     }
@@ -139,7 +139,7 @@ public class RecipeController {
                     description = "Рецепт был найден",
                     content = {
                             @Content(
-                                    mediaType = "addlication/json",
+                                    mediaType = "application/json",
                                     array = @ArraySchema(schema = @Schema(implementation = Recipe.class))
                             )
                     }
@@ -169,7 +169,7 @@ public class RecipeController {
                     description = "Рецепты были найдены",
                     content = {
                             @Content(
-                                    mediaType = "addlication/json",
+                                    mediaType = "application/json",
                                     array = @ArraySchema(schema = @Schema(implementation = Recipe.class))
                             )
                     }
@@ -203,7 +203,7 @@ public class RecipeController {
                     description = "Рецепт был изменен",
                     content = {
                             @Content(
-                                    mediaType = "addlication/json",
+                                    mediaType = "application/json",
                                     array = @ArraySchema(schema = @Schema(implementation = Recipe.class))
                             )
                     }
@@ -241,7 +241,7 @@ public class RecipeController {
                     description = "Рецепт был удален",
                     content = {
                             @Content(
-                                    mediaType = "addlication/json",
+                                    mediaType = "application/json",
                                     array = @ArraySchema(schema = @Schema(implementation = Recipe.class))
                             )
                     }
